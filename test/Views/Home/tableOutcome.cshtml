@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+<html>
+<head>
+
+</head>
+<body>
+    <h1>Таблица  расходов</h1>
+    <table class="table">
+        <tr><td  style="padding:10px;">Сумма</td><td style="padding:10px;">Mесяц</td> <td style="padding:10px;">Комментарий</td> <td style="padding:10px;">Категория</td></tr>
+        @using System.Data.SqlClient;
+        @{
+
+            SqlConnection sqlConnection = new SqlConnection(Global.con);
+            sqlConnection.Open();
+            string cmd = String.Format("select * from dbo.outcome");
+            SqlCommand sqlCommand = new SqlCommand(cmd, sqlConnection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                <tr><td style="padding:10px;">@reader[1].ToString()</td><td style="padding:10px;">@reader[2].ToString()</td> <td style="padding:10px;">@reader[3].ToString()</td> <td style="padding:10px;">@reader[4].ToString()</td></tr>
+            }
+            sqlConnection.Close();
+        }
+
+    </table>
+    <a href ="~/Home/Index" style="display:block;">На главную страницу</a>
+    <a href ="~/Home/tableIncomeOutcome" style="display:block;">Таблица доходов</a>
+</body>
+</html>
+
